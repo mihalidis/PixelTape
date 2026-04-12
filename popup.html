@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PixelTape</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <div class="popup">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-top">
+        <div class="logo-icon">📏</div>
+        <div class="logo-text">Pixel<span>Tape</span></div>
+      </div>
+      <div class="tagline" data-i18n="tagline">Measure & Pick Colors</div>
+    </div>
+
+    <!-- TOOL BUTTONS -->
+    <div class="tools">
+      <button class="tool-btn btn-ruler" id="rulerBtn">
+        <div class="status-dot"></div>
+        <span class="icon">📐</span>
+        <span data-i18n="ruler">Ruler</span>
+      </button>
+      <button class="tool-btn btn-picker" id="pickerBtn">
+        <div class="status-dot"></div>
+        <span class="icon">🎨</span>
+        <span data-i18n="colorPicker">Color Picker</span>
+      </button>
+    </div>
+
+    <!-- ACTIVE HINT (shown when ruler is active) -->
+    <div class="active-hint" id="activeHint" style="display:none;">
+      <div class="pulse"></div>
+      <span id="hintText" data-i18n="hintStart">Click on page to set start point</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- RESULTS -->
+    <div class="results">
+
+      <!-- Format pre-selector -->
+      <div class="format-pre-card">
+        <div class="format-pre-label" data-i18n="autoCopyFormat">Auto-copy format:</div>
+        <div class="format-toggle">
+          <button class="fmt-btn active" data-fmt="hex">HEX</button>
+          <button class="fmt-btn" data-fmt="rgb">RGB</button>
+          <button class="fmt-btn" data-fmt="hsl">HSL</button>
+          <button class="fmt-btn" data-fmt="rgba">RGBA</button>
+        </div>
+      </div>
+
+      <!-- Saved colors -->
+      <div class="result-card">
+        <div class="result-label">
+          <span data-i18n="savedColors">Saved Colors</span>
+          <button id="clearHistoryBtn" class="clear-btn" style="display:none;" data-i18n="clear">Clear</button>
+        </div>
+        <div id="colorHistoryEmpty" class="empty" data-i18n="savedEmpty">
+          <span class="empty-icon">✨</span>
+          Picked colors will appear here
+        </div>
+        <div id="colorHistory" class="color-history" style="display:none;"></div>
+      </div>
+
+    </div>
+
+    <!-- Global toast -->
+    <div id="globalToast" class="global-toast" data-i18n="copied">✓ Copied to clipboard</div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <span data-i18n="footer">🔒 No data collected · <span>100% private</span></span>
+      <span class="lang-switch">
+        <button class="lang-btn" data-lang="tr">TR</button>
+        <span class="lang-sep">·</span>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </span>
+    </div>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

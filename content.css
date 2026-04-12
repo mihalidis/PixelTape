@@ -1,0 +1,95 @@
+/* PixelTape content styles — injected into page */
+
+#pt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  cursor: crosshair;
+  user-select: none;
+  pointer-events: all;
+}
+
+/* Selection rectangle */
+#pt-selection {
+  position: fixed;
+  border: 2px dashed #b39ddb;
+  background: rgba(179, 157, 219, 0.12);
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 2147483646;
+  display: none;
+}
+
+/* Floating measurement tooltip */
+#pt-tooltip {
+  position: fixed;
+  background: linear-gradient(135deg, #3d2f6b, #5c42a8);
+  color: white;
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 2147483647;
+  white-space: nowrap;
+  display: none;
+  box-shadow: 0 4px 16px rgba(61, 47, 107, 0.4);
+  letter-spacing: 0.3px;
+}
+
+#pt-tooltip::before {
+  content: '📐 ';
+}
+
+/* Color picker cursor tooltip */
+#pt-color-tooltip {
+  position: fixed;
+  display: none;
+  pointer-events: none;
+  z-index: 2147483647;
+  transform: translate(16px, 16px);
+}
+
+#pt-color-tooltip .pt-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+/* Escape hint */
+#pt-esc-hint {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(61, 47, 107, 0.85);
+  backdrop-filter: blur(8px);
+  color: white;
+  font-family: 'Nunito', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 99px;
+  pointer-events: none;
+  z-index: 2147483647;
+  display: none;
+  letter-spacing: 0.3px;
+}
+
+/* Start point marker */
+#pt-start-marker {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: #b39ddb;
+  border: 2px solid white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2147483647;
+  display: none;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 8px rgba(179, 157, 219, 0.6);
+}
