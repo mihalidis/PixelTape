@@ -6,6 +6,7 @@ const I18N = {
     tagline: 'Measure & Pick Colors',
     ruler: 'Ruler',
     colorPicker: 'Color Picker',
+    outline: 'Outline',
     hintStart: 'Click on page to set start point',
     autoCopyFormat: 'Auto-copy format:',
     savedColors: 'Saved Colors',
@@ -20,6 +21,7 @@ const I18N = {
     tagline: 'Ölç & Renk Seç',
     ruler: 'Cetvel',
     colorPicker: 'Renk Seçici',
+    outline: 'Çerçeve',
     hintStart: 'Başlangıç noktası için sayfaya tıkla',
     autoCopyFormat: 'Otomatik kopyalama formatı:',
     savedColors: 'Kayıtlı Renkler',
@@ -58,6 +60,7 @@ let rulerActive   = false;
 // ─── DOM refs ─────────────────────────────────────────────────────────────────
 const rulerBtn    = document.getElementById('rulerBtn');
 const pickerBtn   = document.getElementById('pickerBtn');
+const outlineBtn  = document.getElementById('outlineBtn');
 const activeHint  = document.getElementById('activeHint');
 const hintText    = document.getElementById('hintText');
 
@@ -92,7 +95,9 @@ async function loadState() {
     renderHistory();
   }
   // Popup her açıldığında content script'e sor — storage'a güvenme.
-  setRulerActiveState(await isRulerRunning());
+  const status = await getContentStatus();
+  setRulerActiveState(!!status.rulerActive);
+  setOutlineActiveState(!!status.outlineActive);
 
   // Yeni bir sonuç varsa toast göster ve bayrağı temizle.
   // (Clipboard'a zaten content.js içinde yazıldı.)
@@ -139,6 +144,15 @@ rulerBtn.addEventListener('click', async () => {
   // Popup'ı hemen kapat — kullanıcı sayfayla etkileşebilsin, crosshair görünsün.
   // Ölçüm bitince background.js chrome.action.openPopup() ile geri açar.
   window.close();
+});
+
+// ─── Outline (pesticide) button ──────────────────────────────────────────────
+outlineBtn.addEventListener('click', async () => {
+  const isActive = outlineBtn.classList.contains('active');
+  const injected = await ensureContentScript();
+  if (!injected) return;
+  await sendToContent({ action: isActive ? 'stopOutline' : 'startOutline' });
+  setOutlineActiveState(!isActive);
 });
 
 // ─── Color Picker button ──────────────────────────────────────────────────────
@@ -205,6 +219,10 @@ function setRulerActiveState(active) {
   hintText.textContent = I18N[lang].hintStart;
 }
 
+function setOutlineActiveState(active) {
+  outlineBtn.classList.toggle('active', active);
+}
+
 // Saved colors: yuvarlak swatch listesi
 function renderHistory() {
   const hasAny = colorHistory.length > 0;
@@ -266,15 +284,15 @@ async function ensureContentScript() {
   }
 }
 
-// Content script'e sor: ruler şu an çalışıyor mu?
-async function isRulerRunning() {
+// Content script'e sor: hangi modlar aktif?
+async function getContentStatus() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (!tab?.id) return false;
+    if (!tab?.id) return {};
     const res = await chrome.tabs.sendMessage(tab.id, { action: 'getStatus' });
-    return !!(res && res.rulerActive);
+    return res || {};
   } catch {
-    return false;
+    return {};
   }
 }
 

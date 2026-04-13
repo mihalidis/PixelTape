@@ -5,7 +5,7 @@
 # PixelTape
 
 **Measure distances & pick colors on any webpage**
-Frontend geliştiriciler ve QA test uzmanları için yapılmış, minimal ve gizli bir Chrome uzantısı.
+A minimal, privacy-first Chrome extension built for frontend developers and QA testers.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-b39ddb?style=flat-square)
 ![Manifest](https://img.shields.io/badge/manifest-v3-f48fb1?style=flat-square)
@@ -16,120 +16,133 @@ Frontend geliştiriciler ve QA test uzmanları için yapılmış, minimal ve giz
 
 ---
 
-## ✨ Özellikler
+## ✨ Features
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
 ### 📐 Ruler
-Sayfa üzerindeki herhangi iki nokta arasındaki mesafeyi piksel cinsinden ölç. Sürükleme sırasında canlı `w × h` tooltip, iki tıklamadan sonra sonuç panoya kopyalanır. ESC'ye basana kadar ölçüm modunda kalır — birden fazla ölçümü arka arkaya yapabilirsin.
+Measure the distance between any two points on a page in pixels. A live `w × h` tooltip follows your cursor while dragging, and the result is copied to the clipboard after the second click. It stays in measurement mode until you press **ESC** — so you can take multiple measurements back-to-back.
 
 </td>
 <td width="50%" valign="top">
 
 ### 🎨 Color Picker
-Native **EyeDropper API** ile sayfanın herhangi bir pikselinden rengi al. **HEX**, **RGB**, **HSL** ve **RGBA** formatlarında görüntüler, seçtiğin formatı otomatik olarak panoya kopyalar. Picked renkler *Saved Colors* listesinde birikir.
+Grab any pixel on the page using the native **EyeDropper API**. Displays the value in **HEX**, **RGB**, **HSL**, and **RGBA**, and automatically copies your chosen format to the clipboard. Picked colors accumulate in the *Saved Colors* list.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top">
+
+### 🔲 Outline (Pesticide mode)
+The fastest way to debug CSS layout problems: one click draws a 1px outline around **every element** on the page. Each tag type (div, section, p, ul, button, img…) gets its own color, so you can tell nested elements apart at a glance. Inspired by [Pesticide](https://github.com/mrmrs/pesticide) — much faster than clicking around the DevTools element tree. Click the button again to turn it off.
 
 </td>
 </tr>
 </table>
 
-### 🪄 Ek özellikler
+### 🪄 Extras
 
-- 🎯 **Auto-copy format seçimi** — HEX / RGB / HSL / RGBA arasından tercih ettiğin formatı önceden belirle
-- 💾 **Saved Colors** — Seçilen her renk küçük yuvarlak swatch olarak birikir; tıklayınca yeniden kopyalar (max 18)
-- 🌍 **Dil desteği** — Türkçe ve İngilizce (varsayılan TR, seçim kalıcı)
-- 🔒 **%100 gizli** — Hiçbir veri toplanmaz, harici istek yok, tüm veriler lokal `chrome.storage.local` üzerinde
-- ⚡ **Manifest V3** — Modern service worker mimarisi
-- 📦 **Sıfır bağımlılık** — Vanilla JS, CSS, Chrome API — hiçbir external library yok
+- 🎯 **Auto-copy format** — Pre-select your preferred format (HEX / RGB / HSL / RGBA)
+- 💾 **Saved Colors** — Every picked color is stored as a round swatch; click to re-copy (max 18)
+- 🌍 **Bilingual** — Turkish and English (defaults to TR, your choice is persisted)
+- 🔒 **100% private** — No data collected, no network requests, everything lives in local `chrome.storage.local`
+- ⚡ **Manifest V3** — Modern service worker architecture
+- 📦 **Zero dependencies** — Vanilla JS, CSS, Chrome APIs — no external libraries
 
 ---
 
-## 🚀 Kurulum
+## 🚀 Installation
 
 ```bash
-# 1. Depoyu klonla
-git clone https://github.com/<kullanıcı>/pixeltape.git
+# 1. Clone the repo
+git clone https://github.com/<user>/pixeltape.git
 
-# 2. Chrome'da chrome://extensions adresini aç
-# 3. Sağ üstten "Developer mode" aç
-# 4. "Load unpacked" → pixeltape klasörünü seç
+# 2. Open chrome://extensions in Chrome
+# 3. Enable "Developer mode" in the top right
+# 4. Click "Load unpacked" → select the pixeltape folder
 ```
 
 ---
 
-## 🎮 Kullanım
+## 🎮 Usage
 
 ### Ruler
-1. PixelTape popup'ını aç → **Ruler** butonuna tıkla
-2. İmlecin crosshair'e dönüşür, sayfanın herhangi bir noktasına tıkla
-3. İkinci tıklamaya kadar canlı `w: 20px - h: 15px` bilgisi görünür
-4. İkinci tıklamada ölçüm otomatik olarak panoya kopyalanır
-5. Yeni bir ölçüm yapmak için tekrar tıklayabilirsin — **ESC** ile modu kapat
+1. Open the PixelTape popup → click the **Ruler** button
+2. Your cursor becomes a crosshair — click anywhere on the page
+3. Until the second click, a live `w: 20px - h: 15px` tooltip follows the cursor
+4. On the second click the measurement is copied to the clipboard automatically
+5. Click again to start a new measurement — press **ESC** to exit the mode
 
 ### Color Picker
-1. PixelTape popup'ını aç → **Auto-copy format**'ı seç (HEX, RGB, HSL, RGBA)
-2. **Color Picker** butonuna tıkla → sayfa üzerinde büyüteç çıkar
-3. İstediğin pikseli seç → seçtiğin format otomatik olarak panoya kopyalanır
-4. Renk, *Saved Colors* listesine eklenir — tekrar kullanmak için üstüne tıkla
+1. Open the PixelTape popup → choose an **Auto-copy format** (HEX, RGB, HSL, RGBA)
+2. Click the **Color Picker** button → the magnifier appears on the page
+3. Pick a pixel → the value is copied to the clipboard in your chosen format
+4. The color is added to *Saved Colors* — click it any time to re-copy
+
+### Outline
+1. Open the PixelTape popup → click the **Outline** button
+2. Every element on the page gets a colored outline based on its tag type
+3. Once you've found the layout issue, click **Outline** again to turn it off
 
 ---
 
-## 🎨 Tasarım Sistemi
+## 🎨 Design System
 
-PixelTape özenle tasarlanmış bir renk paleti ve tipografi ile gelir:
+PixelTape comes with a carefully crafted color palette and typography:
 
-| Element                 | Değer                                           |
+| Element                 | Value                                           |
 | ----------------------- | ----------------------------------------------- |
-| **Font**                | Nunito (400/600/700/800/900) + DM Mono         |
-| **Header Gradient**     | `#e8e0ff → #fce4f5 → #d8f5ee`                  |
-| **Lavender Accent**     | `#b39ddb` / `#9575cd` / `#5c42a8`              |
-| **Pink Accent**         | `#f48fb1` / `#ec407a`                          |
-| **Mint (active)**       | `#4caf96` / `#d4f5ec`                          |
-| **Border Radius**       | 24px shell · 16px buttons · 14px cards         |
+| **Font**                | Nunito (400/600/700/800/900) + DM Mono          |
+| **Header Gradient**     | `#e8e0ff → #fce4f5 → #d8f5ee`                   |
+| **Lavender Accent**     | `#b39ddb` / `#9575cd` / `#5c42a8`               |
+| **Pink Accent**         | `#f48fb1` / `#ec407a`                           |
+| **Mint (active)**       | `#4caf96` / `#d4f5ec`                           |
+| **Border Radius**       | 24px shell · 16px buttons · 14px cards          |
 
 ---
 
-## 📁 Proje Yapısı
+## 📁 Project Structure
 
 ```
 pixeltape/
-├── manifest.json        # Manifest V3 yapılandırması
+├── manifest.json        # Manifest V3 configuration
 ├── popup.html           # Extension popup UI
-├── popup.css            # Tasarım sistemi stilleri
+├── popup.css            # Design system styles
 ├── popup.js             # Popup logic + i18n + state
-├── content.js           # Sayfaya enjekte edilen ruler/picker mantığı
-├── content.css          # Overlay, tooltip ve marker stilleri
-├── background.js        # Service worker — popup açma, mesaj relay
-├── icons/               # 16 / 48 / 128 px uzantı ikonları
+├── content.js           # Injected ruler/picker/outline logic
+├── content.css          # Overlay, tooltip, and marker styles
+├── background.js        # Service worker — popup open, message relay
+├── icons/               # 16 / 48 / 128 px extension icons
 └── README.md
 ```
 
 ---
 
-## 🔐 Gizlilik
+## 🔐 Privacy
 
-PixelTape **hiçbir veri toplamaz**, hiçbir harici sunucuya istek atmaz.
+PixelTape **collects no data** and makes no external requests.
 
-- ❌ Analytics yok
-- ❌ Telemetry yok
-- ❌ Uzak API yok
-- ✅ Tüm veriler `chrome.storage.local` içinde — sadece senin tarayıcında
-- ✅ Kaynak kodu tamamen açık ve okunabilir
+- ❌ No analytics
+- ❌ No telemetry
+- ❌ No remote APIs
+- ✅ All data stays in `chrome.storage.local` — only in your browser
+- ✅ Source code is fully open and readable
 
 ---
 
-## 🛠️ Teknoloji
+## 🛠️ Tech
 
 - **Manifest V3** Chrome Extension
-- **Vanilla JavaScript** (hiçbir framework veya library yok)
+- **Vanilla JavaScript** (no frameworks, no libraries)
 - **Chrome APIs** — `storage`, `scripting`, `tabs`, `action`, `clipboardWrite`
 - **Native EyeDropper API** (Chrome 95+)
 
 ---
 
-## 📜 Lisans
+## 📜 License
 
 MIT © PixelTape
 

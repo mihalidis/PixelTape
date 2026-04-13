@@ -127,27 +127,31 @@ body {
 /* ─── TOOL BUTTONS ─── */
 .tools {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
   padding: 16px 16px 12px;
 }
 
 .tool-btn {
   border: none;
   border-radius: 16px;
-  padding: 14px 10px;
+  padding: 12px 6px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   font-family: 'Nunito', sans-serif;
   font-weight: 800;
-  font-size: 12px;
+  font-size: 10.5px;
   letter-spacing: 0.2px;
   transition: transform 0.15s, box-shadow 0.15s;
   position: relative;
   overflow: hidden;
+}
+
+.tool-btn .icon {
+  font-size: 20px;
 }
 
 .tool-btn:hover {
@@ -187,6 +191,19 @@ body {
   background: linear-gradient(145deg, #f48fb1, #ec407a);
   color: white;
   box-shadow: 0 4px 16px rgba(244,67,130,0.4);
+}
+
+/* Outline button */
+.btn-outline {
+  background: linear-gradient(145deg, #e8fff8, #c8f0e4);
+  color: #2d7d6a;
+  box-shadow: 0 4px 12px rgba(76,175,150,0.25), 0 1px 0 white inset;
+}
+
+.btn-outline.active {
+  background: linear-gradient(145deg, #66bb9a, #2d7d6a);
+  color: white;
+  box-shadow: 0 4px 16px rgba(45,125,106,0.45);
 }
 
 /* Active green dot */

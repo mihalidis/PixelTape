@@ -24,14 +24,68 @@ if (window.__pixelTapeInjected) {
       return;
     }
     if (message.action === 'getStatus') {
-      sendResponse({ rulerActive: mode === 'ruler' });
+      sendResponse({
+        rulerActive: mode === 'ruler',
+        outlineActive: !!document.getElementById('pt-pesticide-style'),
+      });
       return;
     }
     if (message.action === 'startRuler') startRuler();
     if (message.action === 'stopRuler')  stopAll();
     if (message.action === 'startPicker') startPicker();
+    if (message.action === 'startOutline') startOutline();
+    if (message.action === 'stopOutline')  stopOutline();
     sendResponse({});
   });
+
+  // ─── OUTLINE (Pesticide-style) ───────────────────────────────────────────────
+  const PESTICIDE_CSS = `
+    body          { outline: 1px solid #9575cd !important; }
+    article       { outline: 1px solid #ec407a !important; }
+    nav           { outline: 1px solid #7e57c2 !important; }
+    aside         { outline: 1px solid #a0357a !important; }
+    section       { outline: 1px solid #f48fb1 !important; }
+    header        { outline: 1px solid #b39ddb !important; }
+    footer        { outline: 1px solid #d81b60 !important; }
+    main          { outline: 1px solid #5c42a8 !important; }
+    h1            { outline: 1px solid #4caf96 !important; }
+    h2            { outline: 1px solid #66bb9a !important; }
+    h3            { outline: 1px solid #26a69a !important; }
+    h4            { outline: 1px solid #00897b !important; }
+    h5            { outline: 1px solid #00695c !important; }
+    h6            { outline: 1px solid #2d7d6a !important; }
+    p             { outline: 1px solid #9b8dbf !important; }
+    span          { outline: 1px solid #c4b8e0 !important; }
+    div           { outline: 1px solid #b39ddb !important; }
+    blockquote    { outline: 1px solid #7e57c2 !important; }
+    pre, code     { outline: 1px solid #f48fb1 !important; }
+    ul, ol, dl    { outline: 1px solid #ec407a !important; }
+    li, dt, dd    { outline: 1px solid #fbbde8 !important; }
+    a             { outline: 1px solid #7e57c2 !important; }
+    button        { outline: 1px solid #ec407a !important; }
+    input, textarea, select, option { outline: 1px solid #5c42a8 !important; }
+    label, fieldset, legend, form   { outline: 1px solid #a0357a !important; }
+    img, picture, video, svg, canvas { outline: 1px solid #4caf96 !important; }
+    table         { outline: 1px solid #9575cd !important; }
+    thead, tbody, tfoot { outline: 1px solid #b39ddb !important; }
+    tr            { outline: 1px solid #c4b8e0 !important; }
+    th            { outline: 1px solid #a0357a !important; }
+    td            { outline: 1px solid #f48fb1 !important; }
+    iframe, object, embed { outline: 1px solid #00897b !important; }
+  `;
+
+  function startOutline() {
+    if (document.getElementById('pt-pesticide-style')) return;
+    const style = document.createElement('style');
+    style.id = 'pt-pesticide-style';
+    style.textContent = PESTICIDE_CSS;
+    (document.head || document.documentElement).appendChild(style);
+  }
+
+  function stopOutline() {
+    const style = document.getElementById('pt-pesticide-style');
+    if (style) style.remove();
+  }
 
   // ─── DOM helpers ─────────────────────────────────────────────────────────────
   function createElement(id, tag = 'div') {
