@@ -1,53 +1,42 @@
 'use strict';
 
 // ─── i18n ────────────────────────────────────────────────────────────────────
-const I18N = {
-  en: {
-    tagline: 'Measure & Pick Colors',
-    ruler: 'Ruler',
-    colorPicker: 'Color Picker',
-    outline: 'Outline',
-    hintStart: 'Click on page to set start point',
-    autoCopyFormat: 'Auto-copy format:',
-    savedColors: 'Saved Colors',
-    clear: 'Clear',
-    savedEmpty: '<span class="empty-icon">✨</span>Picked colors will appear here',
-    copied: '✓ Copied to clipboard',
-    copiedX: (v) => `✓ Copied ${v}`,
-    footer: '🔒 No data collected · <span>100% private</span>',
-    swatchTitle: (hex) => `${hex} — click to copy`,
-  },
-  tr: {
-    tagline: 'Ölç & Renk Seç',
-    ruler: 'Cetvel',
-    colorPicker: 'Renk Seçici',
-    outline: 'Çerçeve',
-    hintStart: 'Başlangıç noktası için sayfaya tıkla',
-    autoCopyFormat: 'Otomatik kopyalama formatı:',
-    savedColors: 'Kayıtlı Renkler',
-    clear: 'Temizle',
-    savedEmpty: '<span class="empty-icon">✨</span>Seçilen renkler burada görünecek',
-    copied: '✓ Panoya kopyalandı',
-    copiedX: (v) => `✓ ${v} kopyalandı`,
-    footer: '🔒 Veri toplanmaz · <span>%100 gizli</span>',
-    swatchTitle: (hex) => `${hex} — kopyalamak için tıkla`,
-  },
-};
-
 let lang = 'tr';
-const t = (key) => (I18N[lang] && I18N[lang][key]) || I18N.en[key];
+let _messages = {};
+
+async function loadMessages(l) {
+  try {
+    const url = chrome.runtime.getURL(`_locales/${l}/messages.json`);
+    const res = await fetch(url);
+    _messages = await res.json();
+  } catch {
+    // keep current _messages on failure
+  }
+}
+
+// Looks up a key and substitutes $PLACEHOLDER$ tokens with provided args.
+function t(key, ...args) {
+  const entry = _messages[key];
+  if (!entry) return key;
+  let msg = entry.message;
+  if (entry.placeholders && args.length) {
+    for (const [name, ph] of Object.entries(entry.placeholders)) {
+      const idx = parseInt(ph.content.replace('$', ''), 10) - 1;
+      msg = msg.replace(new RegExp('\\$' + name + '\\$', 'gi'), args[idx] ?? '');
+    }
+  }
+  return msg;
+}
 
 function applyI18n() {
   document.documentElement.setAttribute('lang', lang);
   document.querySelectorAll('[data-i18n]').forEach((el) => {
-    const key = el.getAttribute('data-i18n');
-    const val = I18N[lang][key];
-    if (typeof val === 'string') el.innerHTML = val;
+    const val = t(el.getAttribute('data-i18n'));
+    el.innerHTML = val;
   });
   document.querySelectorAll('.lang-btn').forEach((b) => {
     b.classList.toggle('active', b.getAttribute('data-lang') === lang);
   });
-  // Dinamik içerikleri yeniden render et
   renderHistory();
 }
 
@@ -83,6 +72,7 @@ async function loadState() {
 
   // Default TR — kullanıcı değiştirdiyse storage'dan oku
   lang = data.lang === 'en' ? 'en' : 'tr';
+  await loadMessages(lang);
   applyI18n();
 
   if (data.activeFormat) activeFormat = data.activeFormat;
@@ -185,7 +175,7 @@ historyList.addEventListener('click', (e) => {
   const color = colorHistory.find((c) => c.hex === hex);
   if (!color) return;
   copyToClipboard(formatColorValue(color, activeFormat), null, null);
-  showToast(I18N[lang].copiedX(hex));
+  showToast(t('copiedX', hex));
 });
 
 // ─── Language switch ─────────────────────────────────────────────────────────
@@ -194,7 +184,7 @@ document.addEventListener('click', (e) => {
   if (!btn) return;
   lang = btn.getAttribute('data-lang');
   chrome.storage.local.set({ lang });
-  applyI18n();
+  loadMessages(lang).then(() => applyI18n());
 });
 
 // ─── History clear ───────────────────────────────────────────────────────────
@@ -216,7 +206,7 @@ function setRulerActiveState(active) {
   rulerActive = active;
   rulerBtn.classList.toggle('active', active);
   activeHint.style.display = active ? 'flex' : 'none';
-  hintText.textContent = I18N[lang].hintStart;
+  hintText.textContent = t('hintStart');
 }
 
 function setOutlineActiveState(active) {
@@ -235,7 +225,7 @@ function renderHistory() {
     const sw = document.createElement('button');
     sw.className = 'history-swatch';
     sw.setAttribute('data-hex', c.hex);
-    sw.setAttribute('title', I18N[lang].swatchTitle(c.hex));
+    sw.setAttribute('title', t('swatchTitle', c.hex));
     sw.style.background = c.hex;
     historyList.appendChild(sw);
   });
@@ -262,7 +252,7 @@ function copyToClipboard(text, btnEl, feedback) {
 
 function showToast(msg) {
   if (!globalToast) return;
-  globalToast.textContent = msg || I18N[lang].copied;
+  globalToast.textContent = msg || t('copied');
   globalToast.classList.add('show');
   setTimeout(() => globalToast.classList.remove('show'), 1500);
 }

@@ -1,0 +1,55 @@
+{
+  "extName": {
+    "message": "PixelTape — Measure & Pick Colors",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Measure distances and pick colors on any webpage. Built for frontend devs & QA testers.",
+    "description": "Extension description"
+  },
+  "tagline": {
+    "message": "Measure & Pick Colors"
+  },
+  "ruler": {
+    "message": "Ruler"
+  },
+  "colorPicker": {
+    "message": "Color Picker"
+  },
+  "outline": {
+    "message": "Outline"
+  },
+  "hintStart": {
+    "message": "Click on page to set start point"
+  },
+  "autoCopyFormat": {
+    "message": "Auto-copy format:"
+  },
+  "savedColors": {
+    "message": "Saved Colors"
+  },
+  "clear": {
+    "message": "Clear"
+  },
+  "savedEmpty": {
+    "message": "<span class=\"empty-icon\">✨</span>Picked colors will appear here"
+  },
+  "copied": {
+    "message": "✓ Copied to clipboard"
+  },
+  "copiedX": {
+    "message": "✓ Copied $VALUE$",
+    "placeholders": {
+      "value": { "content": "$1", "example": "#FF5733" }
+    }
+  },
+  "footer": {
+    "message": "🔒 No data collected · <span>100% private</span>"
+  },
+  "swatchTitle": {
+    "message": "$HEX$ — click to copy",
+    "placeholders": {
+      "hex": { "content": "$1", "example": "#FF5733" }
+    }
+  }
+}

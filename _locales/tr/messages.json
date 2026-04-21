@@ -1,0 +1,55 @@
+{
+  "extName": {
+    "message": "PixelTape — Ölç & Renk Seç",
+    "description": "Uzantı adı"
+  },
+  "extDescription": {
+    "message": "Herhangi bir web sayfasında mesafe ölçün ve renk seçin. Frontend geliştiriciler ve QA testçileri için.",
+    "description": "Uzantı açıklaması"
+  },
+  "tagline": {
+    "message": "Ölç & Renk Seç"
+  },
+  "ruler": {
+    "message": "Cetvel"
+  },
+  "colorPicker": {
+    "message": "Renk Seçici"
+  },
+  "outline": {
+    "message": "Çerçeve"
+  },
+  "hintStart": {
+    "message": "Başlangıç noktası için sayfaya tıkla"
+  },
+  "autoCopyFormat": {
+    "message": "Otomatik kopyalama formatı:"
+  },
+  "savedColors": {
+    "message": "Kayıtlı Renkler"
+  },
+  "clear": {
+    "message": "Temizle"
+  },
+  "savedEmpty": {
+    "message": "<span class=\"empty-icon\">✨</span>Seçilen renkler burada görünecek"
+  },
+  "copied": {
+    "message": "✓ Panoya kopyalandı"
+  },
+  "copiedX": {
+    "message": "✓ $VALUE$ kopyalandı",
+    "placeholders": {
+      "value": { "content": "$1", "example": "#FF5733" }
+    }
+  },
+  "footer": {
+    "message": "🔒 Veri toplanmaz · <span>%100 gizli</span>"
+  },
+  "swatchTitle": {
+    "message": "$HEX$ — kopyalamak için tıkla",
+    "placeholders": {
+      "hex": { "content": "$1", "example": "#FF5733" }
+    }
+  }
+}
