@@ -4,11 +4,11 @@
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Measure distances and pick colors on any webpage. Built for frontend devs & QA testers.",
+    "message": "Measure distances, pick colors, and outline elements on any webpage. Built for frontend devs & QA testers.",
     "description": "Extension description"
   },
   "tagline": {
-    "message": "Measure & Pick Colors"
+    "message": "Measure · Pick Colors · Outline"
   },
   "ruler": {
     "message": "Ruler"

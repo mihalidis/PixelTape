@@ -4,7 +4,7 @@
 
 # PixelTape
 
-**Measure distances & pick colors on any webpage**
+**Measure · Pick Colors · Outline**
 A minimal, privacy-first Chrome extension built for frontend developers and QA testers.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-b39ddb?style=flat-square)
@@ -20,24 +20,22 @@ A minimal, privacy-first Chrome extension built for frontend developers and QA t
 
 <table>
 <tr>
-<td width="50%" valign="top">
+<td width="33%" valign="top">
 
 ### 📐 Ruler
 Measure the distance between any two points on a page in pixels. A live `w × h` tooltip follows your cursor while dragging, and the result is copied to the clipboard after the second click. It stays in measurement mode until you press **ESC** — so you can take multiple measurements back-to-back.
 
 </td>
-<td width="50%" valign="top">
+<td width="33%" valign="top">
 
 ### 🎨 Color Picker
 Grab any pixel on the page using the native **EyeDropper API**. Displays the value in **HEX**, **RGB**, **HSL**, and **RGBA**, and automatically copies your chosen format to the clipboard. Picked colors accumulate in the *Saved Colors* list.
 
 </td>
-</tr>
-<tr>
-<td colspan="2" valign="top">
+<td width="33%" valign="top">
 
-### 🔲 Outline (Pesticide mode)
-The fastest way to debug CSS layout problems: one click draws a 1px outline around **every element** on the page. Each tag type (div, section, p, ul, button, img…) gets its own color, so you can tell nested elements apart at a glance. Inspired by [Pesticide](https://github.com/mrmrs/pesticide) — much faster than clicking around the DevTools element tree. Click the button again to turn it off.
+### 🔲 Outline
+One click draws a 1px outline around **every element** on the page. Each tag type (div, section, p, ul, button, img…) gets its own distinct color, so you can tell nested elements apart at a glance — far faster than clicking around the DevTools element tree. Click again to turn it off.
 
 </td>
 </tr>
@@ -69,23 +67,24 @@ git clone https://github.com/<user>/pixeltape.git
 
 ## 🎮 Usage
 
-### Ruler
+### 📐 Ruler
 1. Open the PixelTape popup → click the **Ruler** button
-2. Your cursor becomes a crosshair — click anywhere on the page
-3. Until the second click, a live `w: 20px - h: 15px` tooltip follows the cursor
+2. Your cursor becomes a crosshair — click anywhere on the page to set the start point
+3. A live `w: 20px - h: 15px` tooltip follows the cursor until the second click
 4. On the second click the measurement is copied to the clipboard automatically
 5. Click again to start a new measurement — press **ESC** to exit the mode
 
-### Color Picker
+### 🎨 Color Picker
 1. Open the PixelTape popup → choose an **Auto-copy format** (HEX, RGB, HSL, RGBA)
-2. Click the **Color Picker** button → the magnifier appears on the page
+2. Click the **Color Picker** button → the native EyeDropper opens
 3. Pick a pixel → the value is copied to the clipboard in your chosen format
 4. The color is added to *Saved Colors* — click it any time to re-copy
 
-### Outline
+### 🔲 Outline
 1. Open the PixelTape popup → click the **Outline** button
-2. Every element on the page gets a colored outline based on its tag type
-3. Once you've found the layout issue, click **Outline** again to turn it off
+2. Every element on the page instantly gets a colored outline based on its tag type
+3. Identify spacing, alignment, and nesting issues without opening DevTools
+4. Click **Outline** again to remove all outlines and restore the page
 
 ---
 

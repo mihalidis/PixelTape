@@ -1,7 +1,7 @@
 'use strict';
 
 // ─── i18n ────────────────────────────────────────────────────────────────────
-let lang = 'tr';
+let lang = 'en';
 let _messages = {};
 
 async function loadMessages(l) {
@@ -71,7 +71,7 @@ async function loadState() {
   ]);
 
   // Default TR — kullanıcı değiştirdiyse storage'dan oku
-  lang = data.lang === 'en' ? 'en' : 'tr';
+  lang = data.lang === 'tr' ? 'tr' : 'en';
   await loadMessages(lang);
   applyI18n();
 

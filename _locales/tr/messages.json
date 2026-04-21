@@ -4,11 +4,11 @@
     "description": "Uzantı adı"
   },
   "extDescription": {
-    "message": "Herhangi bir web sayfasında mesafe ölçün ve renk seçin. Frontend geliştiriciler ve QA testçileri için.",
+    "message": "Herhangi bir web sayfasında mesafe ölçün, renk seçin ve elementleri çerçeveleyin. Frontend geliştiriciler ve QA testçileri için.",
     "description": "Uzantı açıklaması"
   },
   "tagline": {
-    "message": "Ölç & Renk Seç"
+    "message": "Ölç · Renk Seç · Çerçeve"
   },
   "ruler": {
     "message": "Cetvel"
